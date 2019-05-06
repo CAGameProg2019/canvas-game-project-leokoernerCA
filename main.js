@@ -1,15 +1,41 @@
 let canvas = document.getElementById('main');
 let c = canvas.getContext('2d');
+let interval;
+let enemyx = Math.floor(Math.random() * 1000);
+let enemyy = Math.floor(Math.random() * 1000);
+let enemyradius = 20;
 
 function init() {
-
-    update();
+    enemyinit();
+    animate();
 }
 
-function update() {
-
-    requestAnimationFrame(update);
+function drawenemy() {
+    var alpha = 1;
+    c.strokeStyle = "blue";
+    c.fillStyle = "blue";
+    c.beginPath();
+    c.arc(enemyx, enemyy, enemyradius, 0, Math.PI * 2, false);
+    c.stroke();
+    c.fill();
 }
+
+function enemyinit() {
+    enemyx = Math.floor(Math.random() * 1000);
+    enemyy = Math.floor(Math.random() * 1000);
+    enemyradius = 20;
+    drawenemy();
+}
+
+function enemyupdate() {
+    enemyradius += .1
+    if(enemyradius < 5) {
+        enemyinit();
+    }
+    drawenemy();
+}
+
+
 
 function Circle(x, y, dx, dy, radius) {
   this.x = x;
@@ -100,28 +126,43 @@ window.addEventListener('keyup', function(event) {
 });
 
 function animate() {
-  requestAnimationFrame(animate);
-  c.fillStyle = 'black';
-  c.fillRect(0,0,innerWidth,innerHeight);
+    requestAnimationFrame(animate);
+    c.fillStyle = 'black';
+    c.fillRect(0,0,innerWidth,innerHeight);
 
-  if(keyPressed.ArrowUp) {
+    if(keyPressed.ArrowUp) {
     circle.dy -= .1;
-  }
-  if(keyPressed.ArrowLeft) {
+    }
+    if(keyPressed.ArrowLeft) {
     circle.dx -= .1;
-  }
-  if(keyPressed.ArrowDown) {
+    }
+    if(keyPressed.ArrowDown) {
     circle.dy += .1;
-  }
-  if(keyPressed.ArrowRight) {
+    }
+    if(keyPressed.ArrowRight) {
     circle.dx += .1;
-  }
-  if(keyPressed.Space) {
+    }
+    if(keyPressed.Space) {
     console.log("pew");
+    shoot();
+    }
+
+    enemyupdate();
+
+
+    circle.update()
   }
 
+function getDistance(x1, y1, x2, y2) {
+    let xDistance = x2 - x1;
+    let yDistance = y2 - y1;
 
-  circle.update()
-  }
+    return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
+}
 
-animate();
+function shoot() {
+    if (getDistance(circle.x, circle.y, enemyx, enemyy) <
+        circle.radius + enemyradius) {
+            enemyradius -= 5;
+        }
+}
