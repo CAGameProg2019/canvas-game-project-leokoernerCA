@@ -1,10 +1,14 @@
 let canvas = document.getElementById('main');
 let c = canvas.getContext('2d');
 let interval;
-let enemyx = Math.floor(Math.random() * 1000);
+let enemyx = Math.floor(Math.random() * 800);
 let enemyy = Math.floor(Math.random() * 1000);
 let enemyradius = 20;
 let enemieskilled = -1;
+let red = Math.floor(Math.random() * 256);
+let green = Math.floor(Math.random() * 256);
+let blue = Math.floor(Math.random() * 256);
+let alpha = 1;
 
 function init() {
     enemyinit();
@@ -20,14 +24,14 @@ function score() {
     // canvas.innerWidth - 50, canvas.innerHeight - 20
     if (enemieskilled >= 10){
         enemyx = 9999999
-        c.fillText("You've Won!!!!", 500, 500);
+        c.fillText("You've Won!!!!", 700, 500);
     }
 }
 
 function drawenemy() {
     var alpha = 1;
-    c.strokeStyle = "blue";
-    c.fillStyle = "blue";
+    c.strokeStyle = "rgba(" + red + ", " + green + ", " + blue + ", " + alpha + ")";
+    c.fillStyle = "rgba(" + red + ", " + green + ", " + blue + ", " + alpha + ")";
     c.beginPath();
     c.arc(enemyx, enemyy, enemyradius, 0, Math.PI * 2, false);
     c.stroke();
@@ -36,6 +40,9 @@ function drawenemy() {
 
 function enemyinit() {
     enemieskilled += 1;
+    red = Math.floor(Math.random() * 256);
+    green = Math.floor(Math.random() * 256);
+    blue = Math.floor(Math.random() * 256);
     enemyx = Math.floor(Math.random() * 1000);
     enemyy = Math.floor(Math.random() * 1000);
     enemyradius = 20;
