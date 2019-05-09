@@ -4,10 +4,24 @@ let interval;
 let enemyx = Math.floor(Math.random() * 1000);
 let enemyy = Math.floor(Math.random() * 1000);
 let enemyradius = 20;
+let enemieskilled = -1;
 
 function init() {
     enemyinit();
     animate();
+    score();
+}
+
+function score() {
+    requestAnimationFrame(score);
+    c.font = "30px Arial";
+    c.fillStyle = "white";
+    c.fillText("You've killed " + enemieskilled + " enemies!", 10, 50);
+    // canvas.innerWidth - 50, canvas.innerHeight - 20
+    if (enemieskilled >= 10){
+        enemyx = 9999999
+        c.fillText("You've Won!!!!", 500, 500);
+    }
 }
 
 function drawenemy() {
@@ -21,6 +35,7 @@ function drawenemy() {
 }
 
 function enemyinit() {
+    enemieskilled += 1;
     enemyx = Math.floor(Math.random() * 1000);
     enemyy = Math.floor(Math.random() * 1000);
     enemyradius = 20;
@@ -143,7 +158,6 @@ function animate() {
     circle.dx += .1;
     }
     if(keyPressed.Space) {
-    console.log("pew");
     shoot();
     }
 
