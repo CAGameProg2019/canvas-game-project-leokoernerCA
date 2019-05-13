@@ -26,6 +26,10 @@ function score() {
         enemyx = 9999999
         c.fillText("You've Won!!!!", 700, 500);
     }
+    if (enemyradius >= 200) {
+        enemyx = 9999999
+        c.fillText("You've Lost!!!!", 700, 500);
+    }
 }
 
 function drawenemy() {
@@ -50,7 +54,7 @@ function enemyinit() {
 }
 
 function enemyupdate() {
-    enemyradius += .1
+    enemyradius += .4
     if(enemyradius < 5) {
         enemyinit();
     }
