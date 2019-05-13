@@ -1,8 +1,8 @@
 let canvas = document.getElementById('main');
 let c = canvas.getContext('2d');
 let interval;
-let enemyx = Math.floor(Math.random() * 800);
-let enemyy = Math.floor(Math.random() * 1000);
+let enemyx = Math.floor(Math.random() * canvas.width);
+let enemyy = Math.floor(Math.random() * canvas.height);
 let enemyradius = 20;
 let enemieskilled = -1;
 let red = Math.floor(Math.random() * 256);
